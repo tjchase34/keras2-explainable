@@ -9,33 +9,33 @@ from typing import Type
 from typing import Union
 
 import tensorflow as tf
-from keras.engine.base_layer import Layer
-from keras.engine.keras_tensor import KerasTensor
-from keras.engine.training import Model
-from keras.layers.normalization.batch_normalization import BatchNormalizationBase
-from keras.layers.normalization.layer_normalization import LayerNormalization
-from keras.layers.pooling.base_global_pooling1d import GlobalPooling1D
-from keras.layers.pooling.base_global_pooling2d import GlobalPooling2D
-from keras.layers.pooling.base_global_pooling3d import GlobalPooling3D
-from keras.layers.reshaping.flatten import Flatten
+from keras import Model
+# from keras.backend.common.keras_tensor import KerasTensor
+from keras.layers import Layer, BatchNormalization, LayerNormalization, Flatten
+from keras.layers import GlobalAveragePooling1D, GlobalAveragePooling2D, GlobalAveragePooling3D
+from keras.layers import MaxPooling1D, MaxPooling2D, MaxPooling3D
 
 from keras_explainable.utils import tolist
 
-E = Union[str, int, tf.Tensor, KerasTensor, Dict[str, Union[str, int]]]
+# E = Union[str, int, tf.Tensor, KerasTensor, Dict[str, Union[str, int]]]
+E = Union[str, int, tf.Tensor, Dict[str, Union[str, int]]]
 
 KERNEL_AXIS = -1
 SPATIAL_AXIS = (-3, -2)
 
 NORMALIZATION_LAYERS = (
-    BatchNormalizationBase,
+    BatchNormalization,
     LayerNormalization,
 )
 
 POOLING_LAYERS = (
     Flatten,
-    GlobalPooling1D,
-    GlobalPooling2D,
-    GlobalPooling3D,
+    GlobalAveragePooling1D,
+    GlobalAveragePooling2D,
+    GlobalAveragePooling3D,
+    MaxPooling1D,
+    MaxPooling2D,
+    MaxPooling3D
 )
 
 
@@ -169,7 +169,7 @@ def find_layer_with(
     )
 
 
-def endpoints(model: Model, endpoints: List[E]) -> List[KerasTensor]:
+def endpoints(model: Model, endpoints: List[E]) -> List[tf.Tensor]:
     """Collect intermediate endpoints in a model based on structured descriptors.
 
     Args:

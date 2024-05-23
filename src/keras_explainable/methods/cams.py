@@ -7,7 +7,7 @@ from typing import Union
 
 import tensorflow as tf
 from keras.backend import int_shape
-from keras.engine.base_layer import Layer
+from keras.layers import Layer
 
 from keras_explainable.filters import normalize
 from keras_explainable.inspection import KERNEL_AXIS
