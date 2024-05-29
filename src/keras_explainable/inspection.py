@@ -287,7 +287,10 @@ def gather_units(
     """
     if indices is None:
         return tensor
-
+    
+    if isinstance(tensor, list):
+        tensor = tensor[0]
+        
     return tf.gather(tensor, indices, axis=axis, batch_dims=batch_dims)
 
 

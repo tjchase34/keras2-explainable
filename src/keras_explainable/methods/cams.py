@@ -84,7 +84,7 @@ def cam(
     weights = gather_units(
         tf.squeeze(logits_layer.kernel), indices, axis=-1, batch_dims=0
     )
-
+    
     dims = "kc" if indices is None else "kbc"
     maps = tf.einsum(f"b...k,{dims}->b...c", activations, weights)
 
