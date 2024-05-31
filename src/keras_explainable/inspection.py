@@ -9,11 +9,11 @@ from typing import Type
 from typing import Union
 
 import tensorflow as tf
-from keras import Model
+from tf_keras import Model
 # from keras.backend.common.keras_tensor import KerasTensor
-from keras.layers import Layer, BatchNormalization, LayerNormalization, Flatten
-from keras.layers import GlobalAveragePooling1D, GlobalAveragePooling2D, GlobalAveragePooling3D
-from keras.layers import MaxPooling1D, MaxPooling2D, MaxPooling3D
+from tf_keras.layers import Layer, BatchNormalization, LayerNormalization, Flatten
+from tf_keras.layers import GlobalAveragePooling1D, GlobalAveragePooling2D, GlobalAveragePooling3D
+from tf_keras.layers import MaxPooling1D, MaxPooling2D, MaxPooling3D
 
 from keras_explainable.utils import tolist
 
@@ -211,10 +211,10 @@ def endpoints(model: Model, endpoints: List[E]) -> List[tf.Tensor]:
 
         if node == "last":
             node = len(layer._inbound_nodes) - 1
-
-        endpoint = (
-            layer.get_input_at(node) if link == "input" else layer.get_output_at(node)
-        )
+            
+            endpoint = (
+                layer.get_input_at(node) if link == "input" else layer.get_output_at(node)
+            )
 
         endpoints_.append(endpoint)
 

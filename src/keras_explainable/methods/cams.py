@@ -6,8 +6,9 @@ from typing import Tuple
 from typing import Union
 
 import tensorflow as tf
-from keras.backend import int_shape
-from keras.layers import Layer
+# import tf_keras as keras
+# from keras.backend import int_shape
+from tf_keras.layers import Layer
 
 from keras_explainable.filters import normalize
 from keras_explainable.inspection import KERNEL_AXIS
@@ -296,8 +297,11 @@ def scorecam(
     scores, activations = model(inputs, training=False)
     scores = gather_units(scores, indices, indices_axis, indices_batch_dims)
 
-    classes = int_shape(scores)[-1] or tf.shape(scores)[-1]
-    kernels = int_shape(activations)[-1] or tf.shape(activations)[-1]
+    # classes = int_shape(scores)[-1] or tf.shape(scores)[-1]
+    # kernels = int_shape(activations)[-1] or tf.shape(activations)[-1]
+    
+    classes = tf.shape(scores)[-1]
+    kernels = tf.shape(activations)[-1]
 
     shape = tf.shape(inputs)
     sizes = [shape[a] for a in spatial_axis]

@@ -230,6 +230,7 @@ def full_gradients(
 
     if biases is None:
         _, *intermediates = (i._keras_history.layer for i in model.outputs)
+        # _, *intermediates = (i._keras_history.operation for i in model.outputs)
         biases = inspection.biases(intermediates)
 
     with tf.GradientTape(watch_accessed_variables=False) as tape:
